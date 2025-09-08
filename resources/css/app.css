@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+
+@theme {
+    --color-brand-900: #070E13;
+    --color-brand-800: #183040;
+    --color-brand-400: #F24F09;
+    --color-brand-500: #BF3612;
+    --color-brand-600: #731C13;
+    --shadow-soft: 0 10px 25px -10px rgba(0,0,0,.25);
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@utility shadow-soft {
+    box-shadow: var(--shadow-soft);
+}
+
+@layer base {
+    html { font-family: var(--font-sans); }
+}
