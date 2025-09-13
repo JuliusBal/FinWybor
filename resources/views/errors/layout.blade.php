@@ -23,8 +23,9 @@
                 </div>
                 <h1 class="text-2xl md:text-3xl font-bold tracking-tight">@yield('heading')</h1>
             </div>
-            <img src="{{ asset('images/error-logo.png') }}" srcset="{{ asset('images/error-logo.png') }} 1x, {{ asset('images/error-logo@2x.png') }} 2x" alt="FinWybor • błąd" class="block h-12 md:h-16 w-auto object-contain mb-4"
-            />
+            <img src="{{ asset('images/error-logo.png') }}" srcset="{{ asset('images/error-logo.png') }} 1x, {{ asset('images/error-logo@2x.png') }} 2x" alt="FinWybor • błąd" style="--logo: clamp(120px, 22vw, 200px)" class="block h-[var(--logo)] w-auto object-contain mb-4 mx-auto"/>
+
+
             <p class="text-slate-600">@yield('message')</p>
             <div class="mt-6 flex flex-wrap gap-3">
                 <a href="{{ url('/') }}"

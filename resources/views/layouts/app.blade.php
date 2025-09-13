@@ -72,5 +72,10 @@
         });
     })();
 </script>
+
+<!-- Cookie consent -->
+@include('partials.tracking')
+@stack('blocked-tags')
+@include('partials.cookie-consent')
 </body>
 </html>

@@ -1,24 +1,42 @@
-*.log
+# OS / editor noise
 .DS_Store
+Thumbs.db
+/.idea
+/.vscode
+/.fleet
+/.zed
+
+# Env & auth
 .env
+.env.*
 .env.backup
 .env.production
-.phpactor.json
-.phpunit.result.cache
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
 /auth.json
-/node_modules
+
+# Logs & caches
+*.log
+/storage/*.key
+/storage/pail
+/.phpunit.result.cache
+/.phpunit.cache
+.phpactor.json
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Laravel runtime
+/bootstrap/cache/
+/storage/app/*
+/storage/framework/*
+/storage/logs/*
+!storage/app/public/.gitignore
+
+# Public outputs (Vite/Laravel)
 /public/build
 /public/hot
 /public/storage
-/storage/*.key
-/storage/pail
-/vendor
-Homestead.json
-Homestead.yaml
-Thumbs.db
+
+# JS log noise
+npm-debug.log*
+yarn-error.log*

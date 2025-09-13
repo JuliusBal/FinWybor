@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @include('offers._meta', ['type' => $type, 'amount' => $amount, 'term' => $term, 'sort' => $sort, 'offers' => $offers ?? []])
+@env('production')
+    @push('blocked-tags')
+        <script type="text/plain" data-category="affiliate">
+            // Awin MasterTag for offers listing only
+        </script>
+    @endpush
+@endenv
 @section('content')
-    {{-- HERO --}}
     <section class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-brand-900 text-white">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-8">
             <nav class="text-xs text-white/70 mb-2" aria-label="breadcrumbs">
@@ -17,11 +23,9 @@
     </section>
 
     <div class="max-w-7xl mx-auto px-4 md:px-6 -mt-6">
-        {{-- Sticky filter bar --}}
         <form id="offers-filter" method="get" action="{{ route('offers.index') }}"
               class="bg-white rounded-xl shadow-soft border border-black/5 p-4 md:p-5 sticky top-2 z-10">
             <div class="grid grid-cols-2 md:grid-cols-12 gap-3">
-                {{-- Typ --}}
                 <div class="md:col-span-3">
                     <label class="text-[11px] uppercase tracking-wide text-brand-800/80">Typ</label>
                     <select name="type"
@@ -32,7 +36,6 @@
                     </select>
                 </div>
 
-                {{-- Kwota --}}
                 <div class="md:col-span-3">
                     <label class="text-[11px] uppercase tracking-wide text-brand-800/80">Kwota (PLN)</label>
                     <input type="number" name="amount" value="{{ $amount }}"
@@ -40,7 +43,6 @@
                            min="100" step="100" placeholder="np. 3000">
                 </div>
 
-                {{-- Okres --}}
                 <div class="md:col-span-2">
                     <label class="text-[11px] uppercase tracking-wide text-brand-800/80">Okres (mies.)</label>
                     <input type="number" name="term" value="{{ $term }}"
@@ -48,7 +50,6 @@
                            min="1" max="120" placeholder="np. 6">
                 </div>
 
-                {{-- Sort --}}
                 <div class="md:col-span-2">
                     <label class="text-[11px] uppercase tracking-wide text-brand-800/80">Sortuj</label>
                     <select name="sort"
@@ -60,7 +61,6 @@
                     </select>
                 </div>
 
-                {{-- Search (brand) --}}
                 <div class="md:col-span-2">
                     <label class="text-[11px] uppercase tracking-wide text-brand-800/80">Szukaj</label>
                     <input type="text" name="q" value="{{ request('q') }}"
@@ -68,10 +68,8 @@
                            class="mt-1 w-full rounded-lg border border-black/10 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-400">
                 </div>
 
-                {{-- CTA + quick chips --}}
                 <div class="col-span-2 md:col-span-12 order-last md:order-none">
                     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
-                        {{-- Quick chips (AJAX-enhanced) --}}
                         <div class="flex flex-wrap items-center gap-2">
                             <a data-ajax href="{{ route('offers.index', array_merge(request()->except('sort','type'), ['type'=>'loan','sort'=>'fastest'])) }}"
                                class="px-3 py-1.5 rounded-lg border border-brand-800/20 text-brand-800 bg-brand-800/5 hover:bg-brand-800/10 text-xs">
@@ -87,7 +85,6 @@
                             </a>
                         </div>
 
-                        {{-- Big CTA --}}
                         <button
                             class="w-full md:w-auto inline-flex items-center justify-center gap-2
                                    bg-brand-400 hover:bg-brand-500 text-white px-5 py-3
@@ -102,7 +99,6 @@
             </div>
         </form>
 
-        {{-- Results surface (skeleton + list) --}}
         <div id="offers-surface" class="mt-6 relative">
             <div id="offers-skeleton" class="hidden absolute inset-0 z-20">
                 @include('offers._skeleton')
@@ -117,7 +113,6 @@
         </div>
     </div>
 
-    {{-- AJAX + skeleton controller --}}
     @push('scripts')
         <script>
             (function () {

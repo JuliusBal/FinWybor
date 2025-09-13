@@ -1,14 +1,9 @@
 <section class="relative isolate overflow-hidden">
-    {{-- Solid dark base for guaranteed contrast --}}
     <div class="absolute inset-0 bg-gradient-to-b from-brand-900 via-brand-900 to-brand-800"></div>
-
-    {{-- Soft accent glows (brand-only colors, low opacity) --}}
     <div class="pointer-events-none absolute -top-32 -left-40 h-[520px] w-[520px] rounded-full
                 bg-brand-500/20 blur-3xl"></div>
     <div class="pointer-events-none absolute -bottom-40 -right-32 h-[460px] w-[460px] rounded-full
                 bg-brand-400/15 blur-3xl"></div>
-
-    {{-- Optional subtle grid, kept very dim so it never overpowers text --}}
     <div class="absolute inset-0 opacity-[.06] mix-blend-overlay bg-grid-faint"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 md:px-6 pt-12 pb-16 md:pt-16 md:pb-20 text-white">
@@ -22,7 +17,6 @@
             </p>
         </div>
 
-        {{-- Finder / wizard --}}
         <form method="get" action="{{ url('/offers') }}"
               class="mt-8 rounded-xl2 border border-white/10 bg-white/5 backdrop-blur
                      shadow-soft p-3 md:p-4">
@@ -59,7 +53,6 @@
                 </div>
             </div>
 
-            {{-- Quick filters --}}
             <div class="mt-3 flex flex-wrap items-center gap-2 text-sm">
                 <span class="text-white/70 mr-1">Szybkie filtry:</span>
                 <a href="{{ route('offers.index', ['type' => 'loan', 'sort' => 'fastest']) }}"
@@ -77,7 +70,6 @@
             </div>
         </form>
 
-        {{-- Trust bar --}}
         <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs md:text-sm text-white/85">
             <div class="flex items-center gap-2">
                 <span class="inline-flex w-6 h-6 rounded bg-white/10 items-center justify-center">✓</span>

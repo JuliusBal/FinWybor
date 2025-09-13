@@ -22,11 +22,18 @@
         <div>
             <div class="font-semibold text-white">Informacje</div>
             <ul class="mt-3 space-y-2">
-                <li><a href="{{ route('newsletter.center') }}" class="hover:text-white">Zarządzaj newsletterem</a></li>
+                <li><a href="{{ route('about') }}" class="hover:text-white">O nas</a></li>
                 <li><a href="{{ route('faq') }}" class="hover:text-white">FAQ</a></li>
                 <li><a href="{{ route('terms') }}" class="hover:text-white">Regulamin</a></li>
                 <li><a href="{{ route('privacy') }}" class="hover:text-white">Polityka prywatności</a></li>
+                <li><a href="{{ route('cookies') }}" class="hover:text-white">Pliki cookies</a></li>
+                <li><a href="{{ route('newsletter.center') }}" class="hover:text-white">Zarządzaj newsletterem</a></li>
                 <li><a href="{{ route('contact.create') }}" class="hover:text-white">Kontakt</a></li>
+                <li>
+                    <a href="{{ route('cookies') }}" class="hover:text-white"
+                       onclick="CookieConsent.open(); return false;">Ustawienia plików cookies</a>
+                </li>
+
             </ul>
         </div>
 
@@ -37,6 +44,14 @@
                 <li>Zawsze porównuj RRSO i całkowity koszt.</li>
             </ul>
         </div>
+
+        <div class="sm:col-span-2 md:col-span-4">
+            <div class="inline-flex items-start gap-2 rounded-lg bg-amber-50/10 border border-amber-200/20 px-3 py-2 text-xs text-amber-100">
+                <svg class="w-4 h-4 mt-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10.011 10.011 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"/></svg>
+                <span>Niektóre linki są partnerskie… <span class="font-semibold">Nie wpływa to na cenę ani ranking.</span></span>
+            </div>
+        </div>
+
     </div>
 
     <div class="border-t border-white/10">

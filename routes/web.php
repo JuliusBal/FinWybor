@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     OfferController, ClickController, PostController,
     CategoryController, ContactController, NewsletterController,
-    SitemapController, RobotsController
+    SitemapController, RobotsController, PostbackController
 };
 
 /**
@@ -50,6 +50,8 @@ Route::prefix('kontakt')->name('contact.')->controller(ContactController::class)
     Route::get('/', 'create')->name('create');
     Route::post('/', 'store')->middleware('throttle:10,1')->name('store');
 });
+Route::view('/o-nas', 'static.about')->name('about');
+Route::view('/cookies', 'static.cookies')->name('cookies');
 
 // Newsletter
 Route::prefix('newsletter')->name('newsletter.')->controller(NewsletterController::class)->group(function () {
@@ -63,6 +65,11 @@ Route::prefix('newsletter')->name('newsletter.')->controller(NewsletterControlle
 Route::post('/click', [ClickController::class, 'store'])
     ->middleware('throttle:60,1')
     ->name('click.store');
+
+Route::match(['get','post'], '/postback/{network}', [PostbackController::class, 'handle'])
+    ->whereIn('network', ['awin'])
+    ->middleware('throttle:60,1')
+    ->name('postback.handle');
 
 // SEO
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
