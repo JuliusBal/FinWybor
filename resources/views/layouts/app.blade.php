@@ -26,6 +26,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- Page-specific extras (JSON-LD etc.) --}}
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZEYRWM1D6H"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZEYRWM1D6H');
+    </script>
+
     @stack('meta')
 </head>
 
