@@ -18,8 +18,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-// optional debug
-use Illuminate\Support\Facades\Log;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,21 +28,6 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->authGuard('web')
-            ->auth(function () {
-                $ok = auth()->check() && auth()->user()->email === 'julius.baltusis@gmail.com';
-
-                 Log::info('FILAMENT_AUTH', [
-                     'ok'    => $ok,
-                     'uid'   => optional(auth()->user())->id,
-                     'email' => optional(auth()->user())->email,
-                     'guard' => auth()->getDefaultDriver(),
-                     'https' => request()->isSecure(),
-                     'sess'  => session()->getId(),
-                 ]);
-
-                return $ok;
-            })
             ->colors([
                 'primary' => Color::Amber,
             ])
