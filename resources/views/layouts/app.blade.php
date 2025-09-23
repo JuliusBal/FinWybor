@@ -22,6 +22,7 @@
     <meta name="twitter:title" content="@yield('og_title', View::yieldContent('title','Porównywarka finansowa'))">
     <meta name="twitter:description" content="@yield('og_description', View::yieldContent('meta_description','Porównaj pożyczki, karty i ubezpieczenia'))">
     <meta name="twitter:image" content="@yield('og_image', asset('images/og-default.jpg'))">
+    <meta name="mylead-verification" content="b5937cc503ef3ddcd8143752d5fa1a88">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
