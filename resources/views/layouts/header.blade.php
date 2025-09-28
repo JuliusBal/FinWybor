@@ -3,16 +3,21 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6">
             <div class="h-16 flex items-center justify-between">
                 {{-- Logo --}}
-                <a href="{{ url('/') }}" aria-label="FinWybor"
-                   class="group inline-flex items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300">
-  <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-500 shadow-glow ring-1 ring-white/15 transition-transform group-hover:scale-105">
-    <svg viewBox="0 0 24 24" class="h-4.5 w-4.5 text-white" aria-hidden="true">
-      <circle cx="12" cy="12" r="7.4" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".9"/>
-      <path d="M12 6.3l3 6.1-6 3L12 6.3z" fill="currentColor"/>
-      <path d="M9 12.6l1.8 1.8 4.1-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </span><span class="font-semibold text-white">Fin<span class="text-brand-200">Wybor</span><span class="text-brand-400 transition-colors group-hover:text-brand-500">.pl</span></span>
+                <a href="{{ url('/') }}" aria-label="FinWybor" class="group inline-flex items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300">
+                 <span class="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-500 shadow-glow ring-1 ring-white/15 transition-transform group-hover:scale-105">
+                   <svg viewBox="0 0 24 24" class="h-7 w-7 text-white" aria-hidden="true">
+                     <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                       <circle cx="12" cy="12" r="8.2" opacity=".95"/>
+                       <path d="M7 15.5v-2.8M11 15.5v-5M15 15.5v-7"/>
+                       <path d="M6.5 12.5l3 3 8-8.5"/>
+                     </g>
+                   </svg>
+                 </span>
+                <span class="font-semibold text-white whitespace-nowrap" translate="no">
+                   Fin<span class="text-brand-200">Wybor</span><span class="text-brand-400 transition-colors group-hover:text-brand-500">.pl</span>
+                 </span>
                 </a>
+
                 {{-- Desktop nav --}}
                 <nav class="hidden md:flex items-center gap-7 text-sm">
                     <a href="{{ route('offers.loans.landing') }}"

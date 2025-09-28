@@ -1,9 +1,10 @@
 <footer class="mt-12 bg-brand-900 text-white/80">
     <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm" role="navigation" aria-label="Stopka">
         <div>
-            <a href="{{ url('/') }}" class="font-bold text-white text-lg">
+            <a href="{{ url('/') }}" class="font-bold text-white text-lg whitespace-nowrap" translate="no">
                 Fin<span class="text-brand-300">Wybor</span>.pl
             </a>
+
             <p class="mt-3 text-white/70">
                 Porównywarka finansowa. Treści mają charakter informacyjny – nie stanowią rekomendacji.
             </p>
