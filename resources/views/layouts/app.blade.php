@@ -24,7 +24,7 @@
     <meta name="twitter:image" content="@yield('og_image', asset('images/og-default.jpg'))">
     <meta name="mylead-verification" content="b5937cc503ef3ddcd8143752d5fa1a88">
     <meta name="convertiser-verification" content="60598e1813655a529d4a7b7650a53d34e6b02732" />
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- Page-specific extras (JSON-LD etc.) --}}

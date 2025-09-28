@@ -57,4 +57,43 @@ class OfferController extends Controller
         $r->merge(['type' => 'insurance']);
         return $this->index($r);
     }
+
+    public function loansLanding(Request $r)
+    {
+        $defaults = [
+            'type'   => 'loan',
+            'amount' => (int) ($r->query('amount', 3000)),
+            'term'   => (int) ($r->query('term', 6)),
+            'sort'   => $r->query('sort', 'fastest'),
+        ];
+
+        $r->merge($defaults + $r->query());
+
+        $f = OfferFilters::fromRequest($r);
+        $offers = $this->service->list($f);
+
+        $baseAction = url('/kredyty-gotowkowe');
+
+        $pageTitle       = 'Kredyty gotówkowe – porównaj oferty';
+        $pageDescription = 'Sprawdź RRSO, ratę, całkowity koszt i czas wypłaty. Porównaj kredyty gotówkowe i złóż wniosek online.';
+        $canonical       = $baseAction;
+
+        $payload = [
+            'offers'          => $offers,
+            'amount'          => $f->amount,
+            'term'            => $f->term,
+            'type'            => $f->type,
+            'sort'            => $f->sort,
+            'baseAction'      => $baseAction,
+            'pageTitle'       => $pageTitle,
+            'pageDescription' => $pageDescription,
+            'canonical'       => $canonical,
+        ];
+
+        if ($r->ajax()) {
+            return view('offers._list', $payload);
+        }
+
+        return view('offers.loans-landing', $payload);
+    }
 }

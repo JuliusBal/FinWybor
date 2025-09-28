@@ -48,4 +48,6 @@
             </div>
         </div>
     </section>
+
+    @include('partials.latest-posts', ['posts' => $posts])
 @endsection

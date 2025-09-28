@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    OfferController, ClickController, PostController,
-    CategoryController, ContactController, NewsletterController,
-    SitemapController, RobotsController, PostbackController
-};
+use App\Http\Controllers\
+{HomeController, OfferController, ClickController, PostController, CategoryController, ContactController, NewsletterController, SitemapController, RobotsController, PostbackController};
 
 /**
  * Load testing-only routes separately
@@ -17,7 +14,7 @@ if (app()->environment('testing')) {
 /**
  * Public site
  */
-Route::view('/', 'home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Static pages
 Route::view('/faq', 'static.faq')->name('faq');
@@ -32,6 +29,9 @@ Route::prefix('oferty')->name('offers.')->controller(OfferController::class)->gr
     Route::get('/ubezpieczenia', 'insurance')->name('insurance');
 });
 Route::permanentRedirect('/offers', '/oferty');
+//LP
+Route::get('/kredyty-gotowkowe', [OfferController::class, 'loansLanding'])
+    ->name('offers.loans.landing');
 
 // Blog (posts)
 Route::prefix('artykuly')->name('posts.')->controller(PostController::class)->group(function () {

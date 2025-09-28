@@ -15,7 +15,7 @@
                 </a>
                 {{-- Desktop nav --}}
                 <nav class="hidden md:flex items-center gap-7 text-sm">
-                    <a href="{{ route('offers.loans') }}"
+                    <a href="{{ route('offers.loans.landing') }}"
                        class="px-3 py-1.5 rounded-lg transition
        {{ request()->routeIs('offers.loans')
             ? 'bg-brand-400 hover:bg-brand-500 text-white shadow-soft'

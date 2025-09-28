@@ -12,7 +12,7 @@
         <div>
             <div class="font-semibold text-white">Oferta</div>
             <ul class="mt-3 space-y-2">
-                <li><a href="{{ route('offers.loans') }}" class="hover:text-white">Pożyczki</a></li>
+                <li><a href="{{ route('offers.loans.landing') }}" class="hover:text-white">Pożyczki</a></li>
                 <li><a href="{{ route('offers.cards') }}" class="hover:text-white">Karty kredytowe</a></li>
                 <li><a href="{{ route('offers.insurance') }}" class="hover:text-white">Ubezpieczenia</a></li>
                 <li><a href="{{ route('posts.index') }}" class="hover:text-white">Artykuły</a></li>
@@ -37,13 +37,13 @@
             </ul>
         </div>
 
-        <div>
-            <div class="font-semibold text-white">Współpraca</div>
-            <ul class="mt-3 space-y-2">
-                <li>Linki partnerskie (Awin/Admitad/CJ) mogą występować.</li>
-                <li>Zawsze porównuj RRSO i całkowity koszt.</li>
-            </ul>
-        </div>
+{{--        <div>--}}
+{{--            <div class="font-semibold text-white">Współpraca</div>--}}
+{{--            <ul class="mt-3 space-y-2">--}}
+{{--                <li>Linki partnerskie (Awin/Admitad/CJ) mogą występować.</li>--}}
+{{--                <li>Zawsze porównuj RRSO i całkowity koszt.</li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
 
         <div class="sm:col-span-2 md:col-span-4">
             <div class="inline-flex items-start gap-2 rounded-lg bg-amber-50/10 border border-amber-200/20 px-3 py-2 text-xs text-amber-100">
