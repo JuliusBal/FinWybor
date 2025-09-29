@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SimpleXMLElement;
@@ -51,8 +52,8 @@ class ImportOffers extends Command
 
                 $providerId = DB::table('providers')->insertGetId([
                     'name'              => $providerName,
-                    'slug'              => $slug, // BŪTINA
-                    'network'           => $source, // awin|admitad|cju|direct|other
+                    'slug'              => $slug,
+                    'network'           => $source,
                     'website_url'       => $this->val($r, ['website_url', 'website']),
                     'tracking_template' => null,
                     'status'            => 'active',
@@ -152,6 +153,7 @@ class ImportOffers extends Command
             $count++;
         }
 
+        Cache::tags(['offers'])->flush();
         $this->info("Imported/updated $count offers from $format file.");
         return 0;
     }
@@ -159,7 +161,7 @@ class ImportOffers extends Command
     private function normalizeNetwork(?string $v): string
     {
         $v = strtolower(trim((string)$v));
-        return in_array($v, ['awin','admitad','cju','direct','other'], true) ? $v : 'other';
+        return in_array($v, ['awin','admitad','cju','direct','convertiser','other'], true) ? $v : 'other';
     }
 
     private function val(array $row, array $keys, $default = null)

@@ -14,10 +14,24 @@ class OfferRepository
         $q = $this->baseQuery($f);
 
         if ($f->isLoanWithParams()) {
-            $q->where('o.amount_min', '<=', $f->amount)
-                ->where('o.amount_max', '>=', $f->amount)
-                ->where('o.term_min_months', '<=', $f->term)
-                ->where('o.term_max_months', '>=', $f->term);
+            $amt = (int) $f->amount;
+            $tm  = (int) $f->term;
+
+            $q->where(function ($w) use ($amt) {
+                $w->whereNull('o.amount_min')
+                    ->orWhere('o.amount_min', '<=', $amt);
+            })->where(function ($w) use ($amt) {
+                $w->whereNull('o.amount_max')
+                    ->orWhere('o.amount_max', '>=', $amt);
+            });
+
+            $q->where(function ($w) use ($tm) {
+                $w->whereNull('o.term_min_months')
+                    ->orWhere('o.term_min_months', '<=', $tm);
+            })->where(function ($w) use ($tm) {
+                $w->whereNull('o.term_max_months')
+                    ->orWhere('o.term_max_months', '>=', $tm);
+            });
         }
 
         $q = $this->applySort($q, $f);
@@ -30,11 +44,15 @@ class OfferRepository
         $clicksSub = DB::raw('(SELECT offer_id, COUNT(*) AS clicks FROM clicks GROUP BY offer_id) c');
 
         return DB::table('offers as o')
+            ->join('providers as p', 'p.id', '=', 'o.provider_id')
             ->where('o.status', 'active')
             ->when($f->type, fn($qq) => $qq->where('o.product_type', $f->type))
             ->leftJoin($clicksSub, 'o.id', '=', 'c.offer_id')
             ->select([
                 'o.*',
+                'p.name   as provider_name',
+                'p.slug   as provider_slug',
+                'p.network as provider_network',
                 DB::raw('COALESCE(c.clicks,0) AS clicks'),
             ]);
     }
@@ -42,11 +60,19 @@ class OfferRepository
     protected function applySort(Builder $q, OfferFilters $f): Builder
     {
         return match ($f->sort) {
-            'popular' => $q->orderByDesc('clicks'),
-            'fastest' => $q->orderByRaw("FIELD(o.payout_speed,'instant','same_day','1_3_days') ASC"),
-            'brand'   => $q->orderBy('o.brand')->orderBy('o.id'),
-            'cheapest' => $q->orderBy('o.id'),
-            default   => $q->orderBy('o.brand')->orderBy('o.id'),
+            'popular'  => $q->orderByDesc('clicks')->orderBy('o.brand'),
+            'fastest'  => $q->orderByRaw("
+            CASE COALESCE(o.payout_speed,'zzz')
+                WHEN 'instant'   THEN 1
+                WHEN 'same_day'  THEN 2
+                WHEN '1_3_days'  THEN 3
+                WHEN 'other'     THEN 4
+                ELSE 5
+            END
+        ")->orderBy('o.brand'),
+            'cheapest' => $q->orderByRaw('o.rrso IS NULL')->orderBy('o.rrso')->orderBy('o.brand'),
+            'brand'    => $q->orderBy('o.brand')->orderBy('o.id'),
+            default    => $q->orderBy('o.brand')->orderBy('o.id'),
         };
     }
 }
