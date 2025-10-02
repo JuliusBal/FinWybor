@@ -11,7 +11,7 @@
                 <ol class="flex items-center gap-2">
                     <li><a href="{{ url('/') }}" class="hover:text-white/90">Start</a></li>
                     <li aria-hidden>›</li>
-                    <li class="text-white/90">Blog</li>
+                    <li class="text-white/90">Artykuły</li>
                 </ol>
             </nav>
 
