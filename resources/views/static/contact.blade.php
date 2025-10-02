@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <div class="mt-3 text-brand-700">
-                        <a href="mailto:hello@FinWybor.pl" class="hover:text-brand-500">hello@FinWybor.pl</a>
+                        <a href="mailto:info@finWybor.pl" class="hover:text-brand-500">info@finWybor.pl</a>
                     </div>
                 </div>
 

@@ -11,6 +11,14 @@
     <meta name="robots" content="@yield('meta_robots', app()->isProduction() ? 'index,follow' : 'noindex,nofollow')">
     <link rel="canonical" href="@yield('canonical', app(\App\Support\Canonical::class)->build(request()))">
 
+    {{--    Favicon--}}
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <meta name="theme-color" content="#0f172a">
+
     {{-- Open Graph / Twitter (fallbacks to title/description above) --}}
     <meta property="og:locale" content="pl_PL">
     <meta property="og:type" content="@yield('og_type','website')">
