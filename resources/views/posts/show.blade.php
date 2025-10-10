@@ -26,7 +26,7 @@
     {{-- MAIN CONTENT --}}
     <div class="max-w-3xl mx-auto px-4 md:px-6 py-8">
         @if($post->thumbnail_url)
-            <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full rounded-xl shadow-soft mb-6">
+            <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full rounded-xl shadow-soft mb-6" loading="eager" decoding="async" fetchpriority="high" width="1280" height="720">
         @endif
 
         <article class="prose prose-slate prose-lg max-w-none">

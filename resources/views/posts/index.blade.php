@@ -105,11 +105,10 @@
                     <a href="{{ route('posts.show', $first->slug) }}" class="grid md:grid-cols-12">
                         <div class="md:col-span-7">
                             @if($first->thumbnail_url)
-                                <img src="{{ $first->thumbnail_url }}" alt="{{ $first->title }}"
-                                     class="w-full h-64 md:h-full object-cover">
+                                <img src="{{ $first->thumbnail_url }}" alt="{{ $first->title }}" class="w-full h-64 md:h-full object-cover" loading="eager" decoding="async" fetchpriority="high" width="1280" height="720"
+                                >
                             @else
-                                <div
-                                    class="w-full h-64 md:h-full bg-gradient-to-br from-brand-300/30 to-brand-400/20"></div>
+                                <div class="w-full h-64 md:h-full bg-gradient-to-br from-brand-300/30 to-brand-400/20"></div>
                             @endif
                         </div>
                         <div class="md:col-span-5 p-6 md:p-8">
@@ -146,11 +145,19 @@
                         class="group bg-white rounded-xl shadow-card border border-slate-200/60 overflow-hidden hover:shadow-lg transition-shadow">
                         <a href="{{ route('posts.show', $post->slug) }}" class="block">
                             @if($post->thumbnail_url)
-                                <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}"
-                                     class="w-full h-44 object-cover">
+                                <img
+                                    src="{{ $post->thumbnail_url }}"
+                                    alt="{{ $post->title }}"
+                                    class="w-full h-44 object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                    fetchpriority="low"
+                                    width="800" height="450"
+                                >
                             @else
                                 <div class="w-full h-44 bg-gradient-to-br from-brand-300/30 to-brand-400/20"></div>
                             @endif
+
                             <div class="p-5">
                                 <div class="flex items-center gap-2 text-xs text-slate-500">
                                     @if($post->category?->name)

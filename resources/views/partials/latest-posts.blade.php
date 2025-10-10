@@ -32,9 +32,7 @@
                         <a href="{{ route('posts.show', $post->slug) }}" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-300 rounded-2xl">
                             <div class="relative aspect-[16/9] overflow-hidden">
                                 @if($post->thumbnail_url)
-                                    <img src="{{ $post->thumbnail_url }}"
-                                         alt="{{ $post->title }}"
-                                         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
+                                    <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" loading="lazy" decoding="async" fetchpriority="low" width="1280" height="720">
                                 @else
                                     <div class="h-full w-full bg-gradient-to-br from-brand-300/30 to-brand-400/20"></div>
                                 @endif
