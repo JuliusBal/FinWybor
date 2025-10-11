@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewsletterUnsubscribed;
 use App\Mail\NewsletterUnsubscribeLink;
+use App\Mail\NewsletterWelcome;
 use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -12,6 +14,7 @@ class NewsletterController extends Controller
 {
     public function store(Request $request)
     {
+        // Honeypot
         if ($request->filled('website')) {
             return $request->wantsJson()
                 ? response()->json(['message' => 'OK'], 200)
@@ -24,23 +27,34 @@ class NewsletterController extends Controller
 
         $sub = Subscriber::firstOrNew(['email' => $data['email']]);
 
-        $sub->fill([
-            'status'       => 'subscribed',
-            'ip'           => $request->ip(),
-            'user_agent'   => substr((string) $request->userAgent(), 0, 512),
-            'source'       => $request->headers->get('referer') ?: 'site',
-            'unsubscribed_at' => null,
-        ]);
+        $wasNew       = ! $sub->exists;
+        $wasInactive  = $sub->exists && ! $sub->isActive();
 
-        $sub->save();
-
-        // TODO: optionally send a welcome/confirm email here
-
-        if ($request->wantsJson()) {
-            return response()->json(['message' => 'Dziękujemy! Sprawdź swoją skrzynkę.']);
+        if ($wasInactive) {
+            $sub->status = 'subscribed';
+            $sub->unsubscribed_at = null;
         }
 
-        return back()->with('newsletter_ok', 'Dziękujemy! Sprawdź swoją skrzynkę.');
+        $sub->fill([
+            'ip'              => $request->ip(),
+            'user_agent'      => substr((string) $request->userAgent(), 0, 512),
+            'source'          => $request->headers->get('referer') ?: 'site',
+        ])->save();
+
+        if ($wasNew || $wasInactive) {
+            try {
+                Mail::to($sub->email)->send(new NewsletterWelcome($sub));
+            } catch (\Throwable $e) {
+                \Log::warning('NewsletterWelcome failed', [
+                    'email' => $sub->email,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        return $request->wantsJson()
+            ? response()->json(['message' => 'Dziękujemy! Sprawdź swoją skrzynkę.'])
+            : back()->with('newsletter_ok', 'Dziękujemy! Sprawdź swoją skrzynkę.');
     }
 
     public function unsubscribe(string $token)
@@ -52,6 +66,12 @@ class NewsletterController extends Controller
                 'status'          => 'unsubscribed',
                 'unsubscribed_at' => now(),
             ]);
+
+            try {
+                Mail::to($sub->email)->send(new NewsletterUnsubscribed($sub));
+            } catch (\Throwable $e) {
+                \Log::warning('NewsletterUnsubscribed failed', ['email' => $sub->email, 'error' => $e->getMessage()]);
+            }
         }
 
         return view('newsletter.unsubscribed', ['email' => $sub->email]);

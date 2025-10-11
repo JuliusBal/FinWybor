@@ -87,10 +87,13 @@
                         <label for="consent" class="text-slate-700">
                             Zgadzam się na kontakt w sprawie zapytania.
                             <span class="text-slate-500">Szczegóły w
-                                <a class="underline" href="{{ route('privacy') }}">Polityce prywatności</a>.
+                            <a class="underline" href="{{ route('privacy') }}">Polityce prywatności</a>.
                             </span>
                         </label>
                     </div>
+                    @error('consent')
+                    <div class="text-xs text-red-600 mt-1">{{ $message }}</div>
+                    @enderror
 
                     <button
                         class="w-full inline-flex items-center justify-center gap-2 rounded-lg
@@ -121,7 +124,7 @@
                         </div>
                     </div>
                     <div class="mt-3 text-brand-700">
-                        <a href="mailto:info@finWybor.pl" class="hover:text-brand-500">info@finWybor.pl</a>
+                        <a href="mailto:info@finWybor.pl" class="hover:text-brand-500">info@finwybor.pl</a>
                     </div>
                 </div>
 
